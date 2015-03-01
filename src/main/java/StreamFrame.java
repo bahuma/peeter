@@ -45,7 +45,8 @@ public class StreamFrame extends JFrame {
     }
 
     private void addStreamStatus(Status status) {
-        this.pnlStream.add(new JLabel(status.getUser().getScreenName() + ": " + status.getText()));
+        JLabel message = new JLabel(status.getUser().getScreenName() + ": " + status.getText());
+        this.pnlStream.add(message);
         System.out.println(status.getUser().getScreenName() + ": " + status.getText());
     }
 }
