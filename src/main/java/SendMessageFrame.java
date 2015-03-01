@@ -12,6 +12,7 @@ public class SendMessageFrame extends JFrame {
     private JLabel lblMessage;
     private JTextArea txtaText;
     private JButton btnSend;
+    private GridBagLayout layout = new GridBagLayout();
 
     public SendMessageFrame(Twitter twitter) {
         this.twitter = twitter;
@@ -20,7 +21,7 @@ public class SendMessageFrame extends JFrame {
         this.setTitle("Twitter Client");
         this.setLocationRelativeTo(null);
         this.setSize(500, 400);
-        this.setLayout(new BorderLayout());
+        this.setLayout(this.layout);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         // Setup Components
