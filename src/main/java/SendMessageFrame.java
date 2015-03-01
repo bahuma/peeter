@@ -19,7 +19,7 @@ public class SendMessageFrame extends JFrame {
         this.twitter = twitter;
 
         // Prepare Window
-        this.setTitle("Twitter Client");
+        this.setTitle("Send Message");
         this.setLocationRelativeTo(null);
         this.setSize(500, 400);
         this.setLayout(this.layout);
