@@ -30,9 +30,9 @@ public class SendMessageFrame extends JFrame {
         this.btnSend = new JButton("Senden");
 
         // Add components
-        this.add(lblMessage, BorderLayout.PAGE_START);
-        this.add(txtaText, BorderLayout.CENTER);
-        this.add(btnSend, BorderLayout.PAGE_END);
+        Toolbox.gblAddComponent(this.getContentPane(), this.layout, lblMessage, 0, 0, 1, 1, 1.0, 1.0);
+        Toolbox.gblAddComponent(this.getContentPane(), this.layout, txtaText,   0, 1, 1, 1, 1.0, 8.0);
+        Toolbox.gblAddComponent(this.getContentPane(), this.layout, btnSend,    0, 2, 1, 1, 1.0, 1.0);
 
         // Send Message
         this.btnSend.addActionListener(new ActionListener() {
