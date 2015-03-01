@@ -29,7 +29,7 @@ public class SendMessageFrame extends JFrame {
         this.txtaText = new JTextArea();
         this.btnSend = new JButton("Senden");
 
-        // Add components
+        // Add components       context                container    components  x  y  w  h  ww   wh
         Toolbox.gblAddComponent(this.getContentPane(), this.layout, lblMessage, 0, 0, 1, 1, 1.0, 1.0);
         Toolbox.gblAddComponent(this.getContentPane(), this.layout, txtaText,   0, 1, 1, 1, 1.0, 8.0);
         Toolbox.gblAddComponent(this.getContentPane(), this.layout, btnSend,    0, 2, 1, 1, 1.0, 1.0);
