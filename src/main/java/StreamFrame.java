@@ -22,7 +22,7 @@ public class StreamFrame extends JFrame {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         // Setup Components
-        this.pnlStream = new JPanel(new GridLayout(50, 1));
+        this.pnlStream = new JPanel(new FlowLayout());
         this.pnlDetail = new JPanel(new GridBagLayout());
 
         // Add Panels
@@ -47,6 +47,5 @@ public class StreamFrame extends JFrame {
     private void addStreamStatus(Status status) {
         JLabel message = new JLabel(status.getUser().getScreenName() + ": " + status.getText());
         this.pnlStream.add(message);
-        System.out.println(status.getUser().getScreenName() + ": " + status.getText());
     }
 }
