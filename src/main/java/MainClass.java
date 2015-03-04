@@ -6,8 +6,8 @@ public class MainClass {
     public static void main(String[] args) {
         // Setup Twitter Client
         ConfigurationBuilder cb = new ConfigurationBuilder();
-        cb.setOAuthConsumerKey("5OxuX4YwJdxD433ijgo6DTtV9");
-        cb.setOAuthConsumerSecret("l8UOZGaBdndeS2eVhB30FvG3vry48tNVV6hJEK3fXqj1BQ1xf4");
+        cb.setOAuthConsumerKey("0eebfhuBuMRIpJKcpyVHW0vqd");
+        cb.setOAuthConsumerSecret("jy7pEaRL7cz03rhVFGtLhAP5YaOC1lYay0wB1UVBtn3qtLGOxz");
         cb.setOAuthAccessToken("2397473258-CdEacWH3PWF2GW5KWOUE02Jh6Tdvj8kAOWR2bdk");
         cb.setOAuthAccessTokenSecret("AZRmze08tJWlSHGBzUpdxOYZVkobYw4JyZu4DxXNgvRxN");
 
