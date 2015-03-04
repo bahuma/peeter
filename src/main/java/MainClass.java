@@ -1,21 +1,54 @@
 import twitter4j.Twitter;
+import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
+import twitter4j.auth.AccessToken;
+import twitter4j.auth.RequestToken;
 import twitter4j.conf.ConfigurationBuilder;
+
+import javax.swing.*;
+import java.security.AccessControlContext;
 
 public class MainClass {
     public static void main(String[] args) {
-        // Setup Twitter Client
-        ConfigurationBuilder cb = new ConfigurationBuilder();
-        cb.setOAuthConsumerKey("0eebfhuBuMRIpJKcpyVHW0vqd");
-        cb.setOAuthConsumerSecret("jy7pEaRL7cz03rhVFGtLhAP5YaOC1lYay0wB1UVBtn3qtLGOxz");
-        cb.setOAuthAccessToken("2397473258-CdEacWH3PWF2GW5KWOUE02Jh6Tdvj8kAOWR2bdk");
-        cb.setOAuthAccessTokenSecret("AZRmze08tJWlSHGBzUpdxOYZVkobYw4JyZu4DxXNgvRxN");
+        // App Credentials
+        final String OAUTH_CONSUMER_KEY = "0eebfhuBuMRIpJKcpyVHW0vqd";
+        final String OAUTH_CONSUMER_SECRET = "jy7pEaRL7cz03rhVFGtLhAP5YaOC1lYay0wB1UVBtn3qtLGOxz";
 
-        TwitterFactory tf = new TwitterFactory(cb.build());
+        // Initialize a config store
+        final ConfigStore configStore = new ConfigStore();
 
-        Twitter twitter = tf.getInstance();
+        // Initialize the twitter object
+        final Twitter twitter = TwitterFactory.getSingleton();
+        twitter.setOAuthConsumer(OAUTH_CONSUMER_KEY, OAUTH_CONSUMER_SECRET);
 
-        ConfigStore cs = new ConfigStore();
+        // Get User Access Token from the Store
+        String oAuthAccessToken = configStore.get("OAuthAccessToken");
+        String oAuthAccessTokenSecret = configStore.get("OAuthAccessTokenSecret");
+
+        // Check if Access Token already exists
+        if (oAuthAccessToken != null && oAuthAccessTokenSecret != null) {
+
+            // Set the Access Tokens in the Twitter Client
+            twitter.setOAuthAccessToken(new AccessToken(oAuthAccessToken, oAuthAccessTokenSecret));
+
+        } else {
+
+            // Prompt the User to login
+            new AuthorizationFrame(twitter, new AuthorizationFrame.AuthorizationCallback() {
+                @Override
+                public void success(String accessToken, String accessTokenSecret) {
+                    // Save the token and secret in configStore
+                    configStore.set("OAuthAccessToken", accessToken);
+                    configStore.set("OAuthAccessTokenSecret", accessToken);
+                }
+
+                @Override
+                public void error(Exception e) {
+                    // TODO: Handle Authorization Error
+                    e.printStackTrace();
+                }
+            });
+        }
 
 //        new SendMessageFrame(twitter);
 
