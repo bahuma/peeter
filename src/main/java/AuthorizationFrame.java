@@ -1,5 +1,6 @@
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
+import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 
 import javax.swing.*;
@@ -13,6 +14,7 @@ import java.net.URISyntaxException;
 public class AuthorizationFrame extends JFrame {
     private Twitter twitter;
     private AuthorizationCallback callback;
+    private RequestToken requestToken;
 
     private JLabel lblInfo;
     private JButton btnGetPin;
@@ -47,7 +49,7 @@ public class AuthorizationFrame extends JFrame {
         this.btnLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
+                doLogin();
             }
         });
 
@@ -68,16 +70,29 @@ public class AuthorizationFrame extends JFrame {
 
     private void getPin() {
         try {
-            RequestToken requestToken = this.twitter.getOAuthRequestToken();
+            this.requestToken = this.twitter.getOAuthRequestToken();
             Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
             if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
                 desktop.browse(new URI(requestToken.getAuthorizationURL()));
+            }
+            else
+            {
+                // TODO: Bring the user to copy and paste the link
             }
         } catch (TwitterException e) {
             e.printStackTrace();
         } catch (URISyntaxException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void doLogin() {
+        try {
+            AccessToken accessToken = this.twitter.getOAuthAccessToken(this.requestToken, this.txtPin.getText());
+            this.callback.success(accessToken.getToken(), accessToken.getTokenSecret());
+        } catch (TwitterException e) {
             e.printStackTrace();
         }
     }
