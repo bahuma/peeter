@@ -26,6 +26,7 @@ public class AuthorizationFrame extends JFrame {
         this.callback = callback;
 
         // Setup Frame
+        setTitle("Peeter login");
         setSize(500, 200);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -89,12 +90,18 @@ public class AuthorizationFrame extends JFrame {
     }
 
     private void doLogin() {
-        try {
-            AccessToken accessToken = this.twitter.getOAuthAccessToken(this.requestToken, this.txtPin.getText());
-            this.callback.success(accessToken.getToken(), accessToken.getTokenSecret());
-        } catch (TwitterException e) {
-            this.callback.error(e);
+        if (!this.txtPin.getText().equals("")) {
+            try {
+                AccessToken accessToken = this.twitter.getOAuthAccessToken(this.requestToken, this.txtPin.getText());
+                this.callback.success(accessToken.getToken(), accessToken.getTokenSecret());
+
+                JOptionPane.showMessageDialog(null, "You are now authentificated!", "Successfull login", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+            } catch (TwitterException e) {
+                this.callback.error(e);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "You haven't entered the PIN!", "Login Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
 }
