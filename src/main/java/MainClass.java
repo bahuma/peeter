@@ -15,8 +15,10 @@ public class MainClass {
 
         Twitter twitter = tf.getInstance();
 
-        new SendMessageFrame(twitter);
+        ConfigStore cs = new ConfigStore();
 
-        new StreamFrame(twitter);
+//        new SendMessageFrame(twitter);
+
+//        new StreamFrame(twitter);
     }
 }
