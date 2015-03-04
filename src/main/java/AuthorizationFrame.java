@@ -64,7 +64,7 @@ public class AuthorizationFrame extends JFrame {
     }
 
     public interface AuthorizationCallback {
-        public void success(String AccessToken, String AccessSecret);
+        public void success(String accessToken, String accessTokenSecret);
         public void error(Exception e);
     }
 
@@ -93,7 +93,7 @@ public class AuthorizationFrame extends JFrame {
             AccessToken accessToken = this.twitter.getOAuthAccessToken(this.requestToken, this.txtPin.getText());
             this.callback.success(accessToken.getToken(), accessToken.getTokenSecret());
         } catch (TwitterException e) {
-            e.printStackTrace();
+            this.callback.error(e);
         }
     }
 
