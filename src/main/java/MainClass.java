@@ -40,6 +40,7 @@ public class MainClass {
                     // Save the token and secret in configStore
                     configStore.set("OAuthAccessToken", accessToken);
                     configStore.set("OAuthAccessTokenSecret", accessToken);
+                    new StreamFrame(twitter);
                 }
 
                 @Override
@@ -49,9 +50,5 @@ public class MainClass {
                 }
             });
         }
-
-//        new SendMessageFrame(twitter);
-
-//        new StreamFrame(twitter);
     }
 }
