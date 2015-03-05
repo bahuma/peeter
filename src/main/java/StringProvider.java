@@ -13,7 +13,7 @@ public class StringProvider {
     }
 
     public String get(String id) {
-        return resourceBundle.getString("test");
+        return resourceBundle.getString(id);
     }
 
     public void updateLocale(Locale locale) {
