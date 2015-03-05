@@ -1,18 +1,23 @@
-import sun.reflect.Reflection;
-
 import java.io.File;
-import java.util.Properties;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class StringProvider {
     File stringFile;
-    String language;
-    Properties strings;
+    Locale locale;
+    ResourceBundle resourceBundle;
 
-    public StringProvider(String language) {
-        this.language = language;
+    public StringProvider(Locale locale) {
+        this.locale = locale;
+        this.resourceBundle = ResourceBundle.getBundle("strings", this.locale);
     }
 
     public String get(String id) {
-        return "";
+        return resourceBundle.getString("test");
+    }
+
+    public void updateLocale(Locale locale) {
+        this.locale = locale;
+        this.resourceBundle = ResourceBundle.getBundle("strings", this.locale);
     }
 }
