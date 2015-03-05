@@ -10,16 +10,23 @@ public class ConfigStore {
         try {
 
             this.configFile = new File(System.getProperty("user.home") + "/.peeter/config.properties");
+            boolean fileIsNew = false;
 
             if (!this.configFile.isFile()) {
+                fileIsNew = true;
                 // Create File if not exists
                 this.configFile.getParentFile().mkdirs();
                 this.configFile.createNewFile();
             }
 
             this.properties = new Properties();
-
             this.properties.load(new FileInputStream(this.configFile.getAbsoluteFile()));
+
+            if (fileIsNew) {
+                // Set Default Data in Config File
+                this.properties.setProperty("locale.language", "de");
+                this.properties.setProperty("locale.country", "DE");
+            }
 
         } catch (IOException e) {
             // TODO: Handle exception
@@ -28,6 +35,12 @@ public class ConfigStore {
     }
 
     public String get(String name) {
+        try {
+            this.properties.load(new FileInputStream(this.configFile.getAbsoluteFile()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return this.properties.getProperty(name);
     }
 
