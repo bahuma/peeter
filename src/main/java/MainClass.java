@@ -30,6 +30,7 @@ public class MainClass {
 
             // Set the Access Tokens in the Twitter Client
             twitter.setOAuthAccessToken(new AccessToken(oAuthAccessToken, oAuthAccessTokenSecret));
+            new StreamFrame(twitter);
 
         } else {
 
@@ -39,7 +40,7 @@ public class MainClass {
                 public void success(String accessToken, String accessTokenSecret) {
                     // Save the token and secret in configStore
                     configStore.set("OAuthAccessToken", accessToken);
-                    configStore.set("OAuthAccessTokenSecret", accessToken);
+                    configStore.set("OAuthAccessTokenSecret", accessTokenSecret);
                     new StreamFrame(twitter);
                 }
 
