@@ -6,9 +6,10 @@ public class StringProvider {
     File stringFile;
     Locale locale;
     ResourceBundle resourceBundle;
+    ConfigStore cs = new ConfigStore();
 
-    public StringProvider(Locale locale) {
-        this.locale = locale;
+    public StringProvider() {
+        this.locale = new Locale(this.cs.get("locale.language"), this.cs.get("locale.country"));
         this.resourceBundle = ResourceBundle.getBundle("strings", this.locale);
     }
 
@@ -16,8 +17,10 @@ public class StringProvider {
         return resourceBundle.getString(id);
     }
 
-    public void updateLocale(Locale locale) {
-        this.locale = locale;
+    public void updateLocale() {
+        this.locale = new Locale(this.cs.get("locale.language"), this.cs.get("locale.country"));
         this.resourceBundle = ResourceBundle.getBundle("strings", this.locale);
+
+        System.out.println(this.cs.get("locale.language"));
     }
 }
