@@ -95,7 +95,7 @@ public class AuthorizationFrame extends JFrame {
                 AccessToken accessToken = this.twitter.getOAuthAccessToken(this.requestToken, this.txtPin.getText());
                 this.callback.success(accessToken.getToken(), accessToken.getTokenSecret());
 
-                JOptionPane.showMessageDialog(null, "You are now authentificated!", "Successfull login", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "You are now authenticated!", "Successfull login", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
             } catch (TwitterException e) {
                 this.callback.error(e);
