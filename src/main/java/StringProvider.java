@@ -20,7 +20,5 @@ public class StringProvider {
     public void updateLocale() {
         this.locale = new Locale(this.cs.get("locale.language"), this.cs.get("locale.country"));
         this.resourceBundle = ResourceBundle.getBundle("strings", this.locale);
-
-        System.out.println(this.cs.get("locale.language"));
     }
 }
