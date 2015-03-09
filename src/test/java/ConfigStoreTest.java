@@ -1,23 +1,30 @@
-import junit.framework.TestCase;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.Assert;
 
-public class ConfigStoreTest extends TestCase {
+/**
+ * Test
+ */
+public class ConfigStoreTest {
     ConfigStore conStore;
 
+    @Before
     public void setUp() throws Exception {
-        super.setUp();
         this.conStore = new ConfigStore();
     }
 
+    @Test
     public void testGet() throws Exception {
         conStore.set("testValue", "123456789");
 
-        assertEquals("\"testValue\" should be \"123456789\"", "123456789", conStore.get("testValue"));
+        Assert.assertTrue("\"testValue\" should be \"123456789\"", conStore.get("testValue").equals("123456789"));
     }
 
+    @Test
     public void testUnset() throws Exception {
         conStore.set("testValue", "123456879");
         conStore.unset("testValue");
 
-        assertEquals("\"testValue\" should not be set", null, conStore.get("testValue"));
+        Assert.assertNull("\"testValue\" should not be set", conStore.get("testValue"));
     }
 }
