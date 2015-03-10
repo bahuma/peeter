@@ -3,6 +3,8 @@ import model.ConfigStore;
 import org.junit.Assert;
 import org.junit.Test;
 
+import util.StringProvider;
+
 public class StringProviderTest {
 
 	@Test
