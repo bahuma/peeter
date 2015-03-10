@@ -1,3 +1,4 @@
+package view;
 import twitter4j.ResponseList;
 import twitter4j.Status;
 import twitter4j.Twitter;
@@ -7,7 +8,11 @@ import javax.swing.*;
 import java.awt.*;
 
 public class StreamFrame extends JFrame {
-    private Twitter twitter;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Twitter twitter;
     private GridLayout layout = new GridLayout(1,2);
     private JPanel pnlStream, pnlDetail;
 
