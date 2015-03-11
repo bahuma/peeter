@@ -4,6 +4,7 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
+import util.StringProvider;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,13 +28,15 @@ public class AuthorizationFrame extends JFrame {
 	private JTextField txtPin;
 	private JButton btnLogin;
 
+    private StringProvider stringProvider = new StringProvider();
+
 	public AuthorizationFrame(Twitter twitter,
 			final AuthorizationCallback callback) throws HeadlessException {
 		this.twitter = twitter;
 		this.callback = callback;
 
 		// Setup Frame
-		setTitle("Peeter login");
+		setTitle(this.stringProvider.get("authorization.windowTitle"));
 		setSize(500, 200);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -41,10 +44,10 @@ public class AuthorizationFrame extends JFrame {
 
 		// Setup Compontents
 		this.lblInfo = new JLabel(
-				"<html>Du musst dich einloggen, um diese Anwendung nutzen zu können. Fordern Sie eine PIN an, und geben Sie diese im Feld unten ein.</html>");
+				"<html>" + this.stringProvider.get("authorization.helpText") + "</html>");
 		this.lblInfo.setMaximumSize(new Dimension(500, 50));
 
-		this.btnGetPin = new JButton("Get PIN");
+		this.btnGetPin = new JButton(this.stringProvider.get("authorization.getPin"));
 		this.btnGetPin.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent actionEvent) {
@@ -54,7 +57,7 @@ public class AuthorizationFrame extends JFrame {
 
 		this.txtPin = new JTextField();
 
-		this.btnLogin = new JButton("Login");
+		this.btnLogin = new JButton(this.stringProvider.get("authorization.login"));
 		this.btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
 				doLogin();
@@ -105,15 +108,18 @@ public class AuthorizationFrame extends JFrame {
 						accessToken.getTokenSecret());
 
 				JOptionPane.showMessageDialog(null,
-						"You are now authenticated!", "Successfull login",
+                        this.stringProvider.get("authorization.messages.success.message"),
+                        this.stringProvider.get("authorization.messages.success.title"),
 						JOptionPane.INFORMATION_MESSAGE);
 				dispose();
 			} catch (TwitterException e) {
 				this.callback.error(e);
 			}
 		} else {
-			JOptionPane.showMessageDialog(null, "You haven't entered the PIN!",
-					"Login Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null,
+                    this.stringProvider.get("authorization.messages.error.noPIN.message"),
+					this.stringProvider.get("authorization.messages.error.noPIN.title"),
+                    JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }
