@@ -72,6 +72,10 @@ public class SendMessageFrame extends JFrame {
                     StringProvider.getString("sendmessage.messages.success.title"),
                     JOptionPane.INFORMATION_MESSAGE);
 
+            // Empty inputs
+            this.txtaText.setText("");
+            this.txtRecipient.setText("");
+
 		} catch (TwitterException e1) {
 
             JOptionPane.showMessageDialog(this,
