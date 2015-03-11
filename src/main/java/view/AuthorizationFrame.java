@@ -1,12 +1,11 @@
 package view;
 
-import twitter4j.Twitter;
-import twitter4j.TwitterException;
-import twitter4j.auth.AccessToken;
-import twitter4j.auth.RequestToken;
 import util.StringProvider;
 
 import javax.swing.*;
+
+import controller.AuthorizationController;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,22 +18,21 @@ public class AuthorizationFrame extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Twitter twitter;
+	
+	private AuthorizationController authorizationController;
 	private AuthorizationCallback callback;
-	private RequestToken requestToken;
 
 	private JLabel lblInfo;
 	private JButton btnGetPin;
 	private JTextField txtPin;
 	private JButton btnLogin;
 
-    private StringProvider stringProvider = new StringProvider();
+	private StringProvider stringProvider = new StringProvider();
 
-	public AuthorizationFrame(Twitter twitter,
-			final AuthorizationCallback callback) throws HeadlessException {
-		this.twitter = twitter;
-		this.callback = callback;
-
+	public AuthorizationFrame() throws HeadlessException {
+		
+		this.authorizationController = new AuthorizationController();
+		
 		// Setup Frame
 		setTitle(this.stringProvider.get("authorization.windowTitle"));
 		setSize(500, 200);
@@ -43,24 +41,26 @@ public class AuthorizationFrame extends JFrame {
 		setLayout(new GridLayout(4, 1));
 
 		// Setup Compontents
-		this.lblInfo = new JLabel(
-				"<html>" + this.stringProvider.get("authorization.helpText") + "</html>");
+		this.lblInfo = new JLabel("<html>"
+				+ this.stringProvider.get("authorization.helpText") + "</html>");
 		this.lblInfo.setMaximumSize(new Dimension(500, 50));
 
-		this.btnGetPin = new JButton(this.stringProvider.get("authorization.getPin"));
+		this.btnGetPin = new JButton(
+				this.stringProvider.get("authorization.getPin"));
 		this.btnGetPin.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent actionEvent) {
-				getPin();
+				authorizationController.getPin();
 			}
 		});
 
 		this.txtPin = new JTextField();
 
-		this.btnLogin = new JButton(this.stringProvider.get("authorization.login"));
+		this.btnLogin = new JButton(
+				this.stringProvider.get("authorization.login"));
 		this.btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
-				doLogin();
+				authorizationController.doLogin();
 			}
 		});
 
@@ -78,48 +78,5 @@ public class AuthorizationFrame extends JFrame {
 		public void success(String accessToken, String accessTokenSecret);
 
 		public void error(Exception e);
-	}
-
-	private void getPin() {
-		try {
-			this.requestToken = this.twitter.getOAuthRequestToken();
-			Desktop desktop = Desktop.isDesktopSupported() ? Desktop
-					.getDesktop() : null;
-			if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
-				desktop.browse(new URI(requestToken.getAuthorizationURL()));
-			} else {
-				// TODO: Bring the user to copy and paste the link
-			}
-		} catch (TwitterException e) {
-			e.printStackTrace();
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void doLogin() {
-		if (!this.txtPin.getText().equals("")) {
-			try {
-				AccessToken accessToken = this.twitter.getOAuthAccessToken(
-						this.requestToken, this.txtPin.getText());
-				this.callback.success(accessToken.getToken(),
-						accessToken.getTokenSecret());
-
-				JOptionPane.showMessageDialog(null,
-                        this.stringProvider.get("authorization.messages.success.message"),
-                        this.stringProvider.get("authorization.messages.success.title"),
-						JOptionPane.INFORMATION_MESSAGE);
-				dispose();
-			} catch (TwitterException e) {
-				this.callback.error(e);
-			}
-		} else {
-			JOptionPane.showMessageDialog(null,
-                    this.stringProvider.get("authorization.messages.error.noPIN.message"),
-					this.stringProvider.get("authorization.messages.error.noPIN.title"),
-                    JOptionPane.ERROR_MESSAGE);
-		}
 	}
 }
