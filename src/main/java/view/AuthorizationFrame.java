@@ -45,7 +45,7 @@ public class AuthorizationFrame extends JFrame {
 				"<html>" + StringProvider.getString("authorization.helpText") + "</html>");
 		this.lblInfo.setMaximumSize(new Dimension(500, 50));
 
-		this.btnGetPin = new JButton(StringProvider.getString("authorization.getPin"));
+		this.btnGetPin = new JButton(StringProvider.getString("authorization.button.getPin"));
 		this.btnGetPin.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent actionEvent) {
@@ -55,7 +55,7 @@ public class AuthorizationFrame extends JFrame {
 
 		this.txtPin = new JTextField();
 
-		this.btnLogin = new JButton(StringProvider.getString("authorization.login"));
+		this.btnLogin = new JButton(StringProvider.getString("authorization.button.login"));
 		this.btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
 				doLogin();

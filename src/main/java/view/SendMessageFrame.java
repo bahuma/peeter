@@ -1,6 +1,7 @@
 package view;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
+import util.StringProvider;
 
 import javax.swing.*;
 
@@ -26,18 +27,18 @@ public class SendMessageFrame extends JFrame {
 		this.twitter = twitter;
 
 		// Prepare Window
-		this.setTitle("Send Message");
+		this.setTitle(StringProvider.getString("sendmessage.windowTitle"));
 		this.setLocationRelativeTo(null);
 		this.setSize(500, 400);
 		this.setLayout(this.layout);
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
 		// Setup Components
-		this.lblRecipient = new JLabel("Empfänger:");
+		this.lblRecipient = new JLabel(StringProvider.getString("sendmessage.label.recipient"));
 		this.txtRecipient = new JTextField();
-		this.lblMessage = new JLabel("Nachricht:");
+		this.lblMessage = new JLabel(StringProvider.getString("sendmessage.label.message"));
 		this.txtaText = new JTextArea();
-		this.btnSend = new JButton("Senden");
+		this.btnSend = new JButton(StringProvider.getString("sendmessage.button.send"));
 
 		// Add components context container components x y w h ww wh
 		gblAddComponent(this.getContentPane(), this.layout,
