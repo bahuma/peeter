@@ -1,29 +1,23 @@
 package util;
-import java.io.File;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 import model.ConfigStore;
 
 public class StringProvider {
-	File stringFile;
-	Locale locale;
-	ResourceBundle resourceBundle;
-	ConfigStore cs = new ConfigStore();
 
-	public StringProvider() {
-		this.locale = new Locale(this.cs.get("locale.language"),
-				this.cs.get("locale.country"));
-		this.resourceBundle = ResourceBundle.getBundle("strings", this.locale);
+	public static String getString(String id) {
+        // Create a new ConfigStore
+        ConfigStore cs = new ConfigStore();
+
+        // Create a Locale with values from the ConfigStore
+        Locale locale = new Locale(cs.get("locale.language"), cs.get("locale.country"));
+
+        // Get the resource bundle for the current language
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("strings", locale);
+
+        // Get the String from the resourceBundle
+        return resourceBundle.getString(id);
 	}
 
-	public String get(String id) {
-		return resourceBundle.getString(id);
-	}
-
-	public void updateLocale() {
-		this.locale = new Locale(this.cs.get("locale.language"),
-				this.cs.get("locale.country"));
-		this.resourceBundle = ResourceBundle.getBundle("strings", this.locale);
-	}
 }

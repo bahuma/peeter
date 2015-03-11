@@ -36,7 +36,7 @@ public class AuthorizationFrame extends JFrame {
 		this.callback = callback;
 
 		// Setup Frame
-		setTitle(this.stringProvider.get("authorization.windowTitle"));
+		setTitle(this.stringProvider.getString("authorization.windowTitle"));
 		setSize(500, 200);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -44,10 +44,10 @@ public class AuthorizationFrame extends JFrame {
 
 		// Setup Compontents
 		this.lblInfo = new JLabel(
-				"<html>" + this.stringProvider.get("authorization.helpText") + "</html>");
+				"<html>" + this.stringProvider.getString("authorization.helpText") + "</html>");
 		this.lblInfo.setMaximumSize(new Dimension(500, 50));
 
-		this.btnGetPin = new JButton(this.stringProvider.get("authorization.getPin"));
+		this.btnGetPin = new JButton(this.stringProvider.getString("authorization.getPin"));
 		this.btnGetPin.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent actionEvent) {
@@ -57,7 +57,7 @@ public class AuthorizationFrame extends JFrame {
 
 		this.txtPin = new JTextField();
 
-		this.btnLogin = new JButton(this.stringProvider.get("authorization.login"));
+		this.btnLogin = new JButton(this.stringProvider.getString("authorization.login"));
 		this.btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
 				doLogin();
@@ -108,8 +108,8 @@ public class AuthorizationFrame extends JFrame {
 						accessToken.getTokenSecret());
 
 				JOptionPane.showMessageDialog(null,
-                        this.stringProvider.get("authorization.messages.success.message"),
-                        this.stringProvider.get("authorization.messages.success.title"),
+                        this.stringProvider.getString("authorization.messages.success.message"),
+                        this.stringProvider.getString("authorization.messages.success.title"),
 						JOptionPane.INFORMATION_MESSAGE);
 				dispose();
 			} catch (TwitterException e) {
@@ -117,8 +117,8 @@ public class AuthorizationFrame extends JFrame {
 			}
 		} else {
 			JOptionPane.showMessageDialog(null,
-                    this.stringProvider.get("authorization.messages.error.noPIN.message"),
-					this.stringProvider.get("authorization.messages.error.noPIN.title"),
+                    this.stringProvider.getString("authorization.messages.error.noPIN.message"),
+					this.stringProvider.getString("authorization.messages.error.noPIN.title"),
                     JOptionPane.ERROR_MESSAGE);
 		}
 	}
