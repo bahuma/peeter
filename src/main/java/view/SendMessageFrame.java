@@ -66,8 +66,18 @@ public class SendMessageFrame extends JFrame {
 		try {
 			twitter.sendDirectMessage(this.txtRecipient.getText(),
 					this.txtaText.getText());
+
+            JOptionPane.showMessageDialog(this,
+                    "Message sent",
+                    "Success",
+                    JOptionPane.INFORMATION_MESSAGE);
+
 		} catch (TwitterException e1) {
-			e1.getMessage();
+
+            JOptionPane.showMessageDialog(this,
+                    StringProvider.getString("sendmessage.messages.error.message") + " " + e1.getMessage(),
+                    StringProvider.getString("sendmessage.messages.error.title"),
+                    JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
