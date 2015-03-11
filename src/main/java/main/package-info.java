@@ -1,8 +1,1 @@
-/**
- * 
- */
-/**
- * @author Andreas
- *
- */
 package main;
