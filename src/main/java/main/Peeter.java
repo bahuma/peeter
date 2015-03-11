@@ -36,22 +36,7 @@ public class Peeter {
 		} else {
 
 			// Prompt the User to login
-			new AuthorizationFrame(twitter,
-					new AuthorizationFrame.AuthorizationCallback() {
-						public void success(String accessToken,
-								String accessTokenSecret) {
-							// Save the token and secret in configStore
-							configStore.set("OAuthAccessToken", accessToken);
-							configStore.set("OAuthAccessTokenSecret",
-									accessTokenSecret);
-							new StreamFrame(twitter);
-						}
-
-						public void error(Exception e) {
-							// TODO: Handle Authorization Error
-							e.printStackTrace();
-						}
-					});
+			new AuthorizationFrame();
 		}
 	}
 }

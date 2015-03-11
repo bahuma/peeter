@@ -1,5 +1,6 @@
 package view;
 
+import twitter4j.TwitterException;
 import util.StringProvider;
 
 import javax.swing.*;
@@ -18,21 +19,21 @@ public class AuthorizationFrame extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private AuthorizationController authorizationController;
 	private AuthorizationCallback callback;
 
 	private JLabel lblInfo;
 	private JButton btnGetPin;
-	private JTextField txtPin;
+	private final JTextField txtPin;
 	private JButton btnLogin;
 
 	private StringProvider stringProvider = new StringProvider();
 
 	public AuthorizationFrame() throws HeadlessException {
-		
+
 		this.authorizationController = new AuthorizationController();
-		
+
 		// Setup Frame
 		setTitle(this.stringProvider.get("authorization.windowTitle"));
 		setSize(500, 200);
@@ -50,7 +51,17 @@ public class AuthorizationFrame extends JFrame {
 		this.btnGetPin.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent actionEvent) {
-				authorizationController.getPin();
+				if (!txtPin.getText().equals("")) {
+					authorizationController.getPin();
+				} else {
+					JOptionPane.showMessageDialog(
+							null,
+							stringProvider
+									.get("authorization.messages.error.noPIN.message"),
+							stringProvider
+									.get("authorization.messages.error.noPIN.title"),
+							JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 
@@ -59,11 +70,21 @@ public class AuthorizationFrame extends JFrame {
 		this.btnLogin = new JButton(
 				this.stringProvider.get("authorization.login"));
 		this.btnLogin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent actionEvent) {
-				authorizationController.doLogin();
-			}
-		});
 
+			public void actionPerformed(ActionEvent actionEvent) {
+				try {
+				authorizationController.doLogin(txtPin.getText());
+				dispose();
+				JOptionPane
+				.showMessageDialog(null, stringProvider
+						.get("authorization.messages.success.message"),
+						stringProvider
+								.get("authorization.messages.success.title"),
+						JOptionPane.INFORMATION_MESSAGE);
+			} catch (TwitterException e) {
+				callback.error(e);
+			}
+			}});
 		// Add Components
 		this.add(lblInfo);
 		this.add(btnGetPin);
