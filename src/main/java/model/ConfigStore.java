@@ -37,8 +37,8 @@ public class ConfigStore {
 
 			if (fileIsNew) {
 				// Set Default Data in Config File
-				this.properties.setProperty("locale.language", "de");
-				this.properties.setProperty("locale.country", "DE");
+				this.set("locale.language", "de");
+				this.set("locale.country", "DE");
 			}
 
 		} catch (IOException e) {
