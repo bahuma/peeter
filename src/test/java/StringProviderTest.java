@@ -12,7 +12,7 @@ public class StringProviderTest {
 		ConfigStore cs = new ConfigStore();
 
 		cs.set("locale.language", "de");
-		cs.set("locale.country", "US");
+		cs.set("locale.country", "DE");
 
 		Assert.assertTrue("String \"test.first\" should be \"Erster Test\"",
                 StringProvider.getString("test.first").equals("Erster Test"));
